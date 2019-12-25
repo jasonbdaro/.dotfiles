@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-scale '/home/jason/Downloads/yosemite-4.jpg' 

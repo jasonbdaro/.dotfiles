@@ -1,0 +1,20 @@
+session_name: burn
+start_directory: ~/projects/burnnr-portal
+windows:
+  - window_name: editor
+    panes:
+      - vim
+  - window_name: server
+    focus: true
+    layout: tiled
+    panes:
+      - shell_command:
+        - git fetch
+        focus: true
+      - shell_command:
+        - nvm install
+        - nvm use
+        - npm install
+        - git checkout package-lock.json
+        - npm start
+

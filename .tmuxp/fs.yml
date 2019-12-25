@@ -1,0 +1,23 @@
+session_name: fs
+start_directory: ~/projects/fullscale-employee
+windows:
+  - window_name: editor
+    panes:
+      - vim
+  - window_name: server
+    focus: true
+    layout: tiled
+    panes:
+      - php -S localhost:8001 -t /usr/share/webapps/adminer
+      - php artisan queue:work
+      - shell_command:
+        - composer install
+        - git checkout composer.lock
+        - php artisan serve
+      - shell_command:
+        - nvm install 8.12.0
+        - nvm use 8.12.0
+        - npm install
+        - git checkout package-lock.json
+        - npm run watch
+
