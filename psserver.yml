@@ -1,0 +1,46 @@
+session_name: psserver
+start_directory: ~/projects/prospark
+windows:
+  - window_name: services
+    panes:
+      - docker stats
+      - shell_command:
+        - cd ~/projects/laradock
+        - startapp
+        - docker ps
+        - clear
+  - window_name: vi
+    panes:
+      - shell_command:
+        - cd ~/projects/laradock
+        - vi
+  - window_name: node
+    layout: tiled
+    panes:
+      - shell_command:
+        - cd tomu-fe
+        - nvm use --lts
+        - yarn dev -p 3002
+      - shell_command:
+        - cd tomu-fe-learner
+        - nvm use --lts
+        - yarn dev -p 3003
+      - shell_command:
+        - cd tomu-fe-admin
+        - nvm use --lts
+        - yarn dev -p 3004
+      - shell_command:
+        - cd tomu-fe-org
+        - nvm use --lts
+        - yarn dev -p 3005
+  - window_name: queue:worker
+    panes:
+      - shell_command:
+        - cd ~/projects/laradock
+        - startapp
+        - cd ~/projects/prospark/tomu-be
+        - deti tomu-be && php artisan queue:work
+
+
+
+

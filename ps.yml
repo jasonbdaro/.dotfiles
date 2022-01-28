@@ -1,0 +1,23 @@
+session_name: ps
+start_directory: ~/projects/prospark
+windows:
+  - window_name: tomu-be
+    panes:
+      - shell_command:
+        - cd tomu-be && git fetch
+  - window_name: tomu-fe
+    panes:
+      - shell_command:
+        - cd tomu-fe && git fetch
+  - window_name: tomu-learner
+    panes:
+      - shell_command:
+        - cd tomu-fe-learner && git fetch
+  - window_name: tomu-admin
+    panes:
+      - shell_command:
+        - cd tomu-fe-admin && git fetch
+  - window_name: tomu-org
+    panes:
+      - shell_command:
+        - cd tomu-fe-org && git fetch
