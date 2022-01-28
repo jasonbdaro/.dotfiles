@@ -1,4 +1,4 @@
-set number
+set number relativenumber
 set autoindent
 set tabstop=2
 set shiftwidth=2
@@ -10,6 +10,7 @@ set smartcase
 set colorcolumn=80
 set pastetoggle=<F2>
 set termguicolors
+set diffopt=vertical
 
 syntax enable
 set background=light
