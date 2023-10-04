@@ -73,7 +73,7 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(
     git
     zsh-autosuggestions
-    kube-ps1
+		kube-ps1
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -88,10 +88,22 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 source ~/.oh-my-zsh/plugins/kube-ps1/kube-ps1.plugin.zsh
-PROMPT=$PROMPT'$(kube_ps1) '
+#PROMPT=$PROMPT'$(kube_ps1) '
 # kube-ps1 configuration
-KUBE_PS1_SYMBOL_DEFAULT=⎈
-KUBE_PS1_SEPARATOR="~"
+#KUBE_PS1_SYMBOL_DEFAULT=⎈
+#KUBE_PS1_SEPARATOR="~"
+
+# Golang
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/projects/golang
+#export GOROOT=/usr/local/go
+#export GOROOT=
+export PATH=$PATH:/home/jason/projects/golang/bin/hello
+
+# Android Studio
+export ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -123,11 +135,51 @@ alias psclear="php artisan config:clear;php artisan config:cache;php artisan vie
 alias blur="picom --experimental-backends --config ~/picom.conf -b;"
 alias prospark="cd ~/projects/prospark"
 alias personal="cd ~/projects/personal"
+alias andstart="yarn react-native start --port 8082"
+alias andrun="yarn react-native run-android --port 8082"
+alias andrelease="yarn react-native run-android --port 8082 --variant=release"
+alias lifestream="cd ~/projects/lifestreamnetworks"
+alias fhotosocialserver='ssh -i "fhotosocial-server.pem" fhotosocial@131.153.202.203'
+alias hollaserver='ssh -i "holla-server.pem" holla@131.153.202.205'
+alias enspirelyserver='ssh -i "enspirely-server.pem" enspirely@131.153.202.199'
 
 # docker laradock
 deti() {
     local project=$1
     docker exec --user=laradock -itw /var/www/prospark/$project laradock-workspace-1 zsh
+}
+# docker laradock
+deti2() {
+    local project=$1
+    docker exec --user=laradock -itw /var/www/$project laradock2-workspace-1 zsh
+    #docker exec -it demons-ran-api-app-1 /bin/bash
+}
+deti3() {
+    local project=$1
+    docker exec --user=laradock -itw /var/www/demonsran/$project laradock-workspace-1 zsh
+}
+deti4() {
+    local project=$1
+    docker exec --user=laradock -itw /var/www/ranph/$project laradock-workspace-1 zsh
+}
+deti5() {
+    local project=$1
+    docker exec --user=laradock -itw /var/www/lifestreamnetworks/$project laradock-workspace-1 zsh
+}
+deti6() {
+    docker exec -it $1 /bin/sh
+}
+detishopify() {
+    local project=$1
+    docker exec --user=laradock -itw /var/www/shopify/$project laradock2-workspace-1 zsh
+}
+detism() {
+    local project=$1
+    docker exec --user=laradock -itw /var/www/lifestreamnetworks/smsites-local/$project laradock-workspace-1 zsh
+}
+deti7() {
+    local project=$1
+    docker exec --user=laradock -itw /var/www/RanOnlinePH/ran-originals.com/$project laradock-workspace-1 zsh
 }
 
 alias pfm="docker exec -it laradock-php-fpm_1"
@@ -136,7 +188,9 @@ alias sln="docker exec -it laradock-selenium-1 bash"
 alias ws="docker exec laradock-workspace-1"
 #alias startapp="docker-compose up -d nginx mariadb adminer phpmyadmin workspace redis"
 #alias startapp="docker-compose up -d nginx adminer postgres workspace"
-alias startapp="docker-compose up -d nginx adminer postgres"
+#alias startapp="docker-compose up -d nginx adminer postgres mariadb redis apache2 mongo"
+alias startapp="docker-compose up -d nginx adminer postgres mariadb redis"
+alias startapp2="docker-compose up -d nginx adminer mariadb"
 alias stopapp="docker-compose stop"
 alias restartapp="stopapp && startapp"
 
@@ -154,6 +208,7 @@ alias gpod="git pull origin develop"
 alias glog="git log --show-signature"
 alias gpush="git push"
 alias gpull="git pull"
+alias co="git checkout "
 
 #kubernetes
 alias k="kubectl"
@@ -162,6 +217,10 @@ alias kcuc="kubectx"
 alias kgcc="kubectl config current-context"
 alias kgcn="kubectl config view --minify | grep namespace"
 alias kgp="kubectl get po"
+
+#kubernetes
+alias lernabuild="yarn lerna run build"
+alias lernadev="yarn lerna run dev --scope=container"
 
 kcucl() {
     source ~/.oh-my-zsh/plugins/kube-ps1/kube-ps1.plugin.zsh
@@ -182,9 +241,9 @@ kdb() {
     keti $pod -- mysql -uroot -p$passwd
 }
 kdump() {
-    local pod="ms-db-mariadb-primary-0"
+    local pod="ps-db-mariadb-primary-0"
 
-    kubectx prospark-dev-eks && kcn prospark && \
+    kubectx prospark-oci-dev && kcn prospark && \
     source ~/.oh-my-zsh/plugins/kube-ps1/kube-ps1.plugin.zsh
 
     #local passwd=$(
@@ -222,13 +281,23 @@ kdump() {
 }
 kdump2() {
     # comment below if you need only the dump
-    docker exec -i laradock-mariadb-1 mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS "$1 && \
+    docker exec -i laradock-mariadb-1 mariadb -uroot -proot -e "CREATE DATABASE IF NOT EXISTS "$1 && \
     echo "\nRestoring database "$1" ..." &&\
-    docker exec -i laradock-mariadb-1 mysql -uroot -proot $1 < ~/Downloads/$2 && \
+    docker exec -i laradock-mariadb-1 mariadb -uroot -proot $1 < ~/Downloads/$2 && \
+    echo "Success!"
+}
+kdump3() {
+    # comment below if you need only the dump
+    kubectl exec -i ps-db-mariadb-client -- mysql -hps-db-mariadb-primary.prospark.svc.cluster.local -uroot -pH/kZeE4r7dVcwugagXADKI5//87t3BmO -e "CREATE DATABASE IF NOT EXISTS "$1 && \
+    echo "\nRestoring database "$1" ..." &&\
+    kubectl exec -i ps-db-mariadb-client -- mysql -hps-db-mariadb-primary.prospark.svc.cluster.local -uroot -pH/kZeE4r7dVcwugagXADKI5//87t3BmO $1 < ~/Downloads/$2 && \
     echo "Success!"
 }
 pdump() {
-    docker exec -i laradock-postgres-1 psql -U default -d $1 < ~/Downloads/$2
+	docker exec -i laradock-postgres-1 psql -U default -c "CREATE DATABASE "$1 && \
+		echo "\nRestoring database "$1" ..." && \
+    docker exec -i laradock-postgres-1 psql -U default -d $1 < ~/Downloads/$2 && \
+    echo "Success!"
 }
 
 envlms() {
@@ -244,7 +313,5 @@ envpwa() {
         find .env -type f -exec sed -i "s/<customer>/$1/g" {} \;
 }
 
-#gojek weekly report
-source ~/projects/prospark/gj-weekly-report/generate.zsh
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

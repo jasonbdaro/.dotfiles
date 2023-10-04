@@ -13,11 +13,12 @@ set termguicolors
 set diffopt=vertical
 
 syntax enable
-set background=light
+set background=dark
 
 " Color theme
 "colorscheme solarized
-colorscheme PaperColor
+"colorscheme PaperColor
+colorscheme Monokai
 
  " transparent background
 " hi Normal guibg=NONE ctermbg=NONE
@@ -60,6 +61,9 @@ Plug 'mhinz/vim-startify'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'pantharshit00/vim-prisma'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 call plug#end()
 
@@ -68,7 +72,8 @@ set noshowmode
 
 " airline configs
 "let g:airline_theme = 'solarized'
-let g:airline_theme = 'papercolor'
+"let g:airline_theme = 'papercolor'
+let g:airline_theme = 'molokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1
@@ -118,4 +123,10 @@ highlight GitGutterChange guifg=#bbbb00 ctermfg=3
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 
 " Ag silver searcher
-autocmd VimEnter * command! -nargs=* Ag call fzf#vim#ag(<q-args>, '', fzf#vim#with_preview())
+"autocmd VimEnter * command! -nargs=* Ag call fzf#vim#ag(<q-args>, '', fzf#vim#with_preview())
+
+" Startify
+let g:startify_lists = []
+
+" Markdown viewer
+let g:mkdp_auto_start = 1
