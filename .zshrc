@@ -210,6 +210,11 @@ alias gpush="git push"
 alias gpull="git pull"
 alias co="git checkout "
 
+#vim
+clearvim() {
+    rm -rf "/home/jason/.vim/sessions`pwd`"
+}
+
 #kubernetes
 alias k="kubectl"
 alias keti="kubectl exec -it"
