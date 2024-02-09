@@ -11,14 +11,14 @@ set colorcolumn=80
 set pastetoggle=<F2>
 set termguicolors
 set diffopt=vertical
+set encoding=UTF-8
 
 syntax enable
 set background=dark
 
 " Color theme
 "colorscheme solarized
-"colorscheme PaperColor
-colorscheme Monokai
+colorscheme PaperColor
 
  " transparent background
 " hi Normal guibg=NONE ctermbg=NONE
@@ -64,6 +64,9 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'pantharshit00/vim-prisma'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
+Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
+Plug 'romgrk/barbar.nvim'
 
 call plug#end()
 
@@ -106,7 +109,7 @@ map <C-b> :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeQuitOnOpen = 1
-" autocmd vimenter * NERDTree"
+"autocmd vimenter * NERDTree"
 
 " indentLine configs
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -130,3 +133,34 @@ let g:startify_lists = []
 
 " Markdown viewer
 let g:mkdp_auto_start = 1
+
+function! MakeSession(overwrite)
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  if (filewritable(b:sessiondir) != 2)
+    exe 'silent !mkdir -p ' b:sessiondir
+    redraw!
+  endif
+  let b:filename = b:sessiondir . '/session.vim'
+  if a:overwrite == 0 && !empty(glob(b:filename))
+    return
+  endif
+  exe "mksession! " . b:filename
+endfunction
+
+function! LoadSession()
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  let b:sessionfile = b:sessiondir . "/session.vim"
+  if (filereadable(b:sessionfile))
+    exe 'source ' b:sessionfile
+  else
+    echo "No session loaded."
+  endif
+endfunction
+
+" Adding automatons for when entering or leaving Vim
+if(argc() == 0)
+  au VimEnter * nested :call LoadSession()
+  au VimLeave * :call MakeSession(1)
+else
+  au VimLeave * :call MakeSession(0)
+endif
