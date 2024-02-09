@@ -1,0 +1,14 @@
+session_name: psserver
+windows:
+  - window_name: server
+    layout: tiled
+    shell_command_before:
+      - cd ~/projects/laradock # run as a first command in all panes
+    panes:
+      - docker stats
+      - startapp
+  - window_name: laradock
+    shell_command_before:
+      - cd ~/projects/laradock # run as a first command in all panes
+    panes:
+      - vi
