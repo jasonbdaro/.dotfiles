@@ -103,6 +103,8 @@ let g:fzf_layout = { 'down': '~25%'  }
 imap jj <esc>
 nnoremap <esc><esc> :silent! nohls<cr>
 vnoremap // y/<C-R>"<CR>
+nmap gt :bnext<cr>
+nmap gT :bprev<cr>
 
 " nerdtree configs
 map <C-b> :NERDTreeToggle<CR>
@@ -134,6 +136,21 @@ let g:startify_lists = []
 " Markdown viewer
 let g:mkdp_auto_start = 1
 
+" barbar configs
+set runtimepath^=~/.vim/bundle/bbye
+nnoremap <silent>    <A-1> <Cmd>BufferGoto 1<CR>
+nnoremap <silent>    <A-2> <Cmd>BufferGoto 2<CR>
+nnoremap <silent>    <A-3> <Cmd>BufferGoto 3<CR>
+nnoremap <silent>    <A-4> <Cmd>BufferGoto 4<CR>
+nnoremap <silent>    <A-5> <Cmd>BufferGoto 5<CR>
+nnoremap <silent>    <A-6> <Cmd>BufferGoto 6<CR>
+nnoremap <silent>    <A-7> <Cmd>BufferGoto 7<CR>
+nnoremap <silent>    <A-8> <Cmd>BufferGoto 8<CR>
+nnoremap <silent>    <A-9> <Cmd>BufferGoto 9<CR>
+nnoremap <silent>    <A-0> <Cmd>BufferLast<CR>
+nnoremap <Leader>q :Bdelete<CR>
+
+" save sessions
 function! MakeSession(overwrite)
   let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
   if (filewritable(b:sessiondir) != 2)
