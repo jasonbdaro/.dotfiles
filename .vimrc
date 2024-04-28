@@ -12,6 +12,7 @@ set pastetoggle=<F2>
 set termguicolors
 set diffopt=vertical
 set encoding=UTF-8
+set mouse=
 
 syntax enable
 set background=dark
@@ -64,9 +65,10 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'pantharshit00/vim-prisma'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
-Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
-Plug 'romgrk/barbar.nvim'
+"barbar
+"Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
+"Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
+"Plug 'romgrk/barbar.nvim'
 
 call plug#end()
 
@@ -105,6 +107,8 @@ nnoremap <esc><esc> :silent! nohls<cr>
 vnoremap // y/<C-R>"<CR>
 nmap gt :bnext<cr>
 nmap gT :bprev<cr>
+nnoremap <silent>    <A-l> <Cmd>tabnext<CR>
+nnoremap <silent>    <A-h> <Cmd>tabprevious<CR>
 
 " nerdtree configs
 map <C-b> :NERDTreeToggle<CR>
@@ -138,17 +142,18 @@ let g:mkdp_auto_start = 1
 
 " barbar configs
 set runtimepath^=~/.vim/bundle/bbye
-nnoremap <silent>    <A-1> <Cmd>BufferGoto 1<CR>
-nnoremap <silent>    <A-2> <Cmd>BufferGoto 2<CR>
-nnoremap <silent>    <A-3> <Cmd>BufferGoto 3<CR>
-nnoremap <silent>    <A-4> <Cmd>BufferGoto 4<CR>
-nnoremap <silent>    <A-5> <Cmd>BufferGoto 5<CR>
-nnoremap <silent>    <A-6> <Cmd>BufferGoto 6<CR>
-nnoremap <silent>    <A-7> <Cmd>BufferGoto 7<CR>
-nnoremap <silent>    <A-8> <Cmd>BufferGoto 8<CR>
-nnoremap <silent>    <A-9> <Cmd>BufferGoto 9<CR>
-nnoremap <silent>    <A-0> <Cmd>BufferLast<CR>
-nnoremap <Leader>q :Bdelete<CR>
+nnoremap <silent>    <A-1> <Cmd>tabn 1<CR>
+nnoremap <silent>    <A-2> <Cmd>tabn 2<CR>
+nnoremap <silent>    <A-3> <Cmd>tabn 3<CR>
+nnoremap <silent>    <A-4> <Cmd>tabn 4<CR>
+nnoremap <silent>    <A-5> <Cmd>tabn 5<CR>
+nnoremap <silent>    <A-6> <Cmd>tabn 6<CR>
+nnoremap <silent>    <A-7> <Cmd>tabn 7<CR>
+nnoremap <silent>    <A-8> <Cmd>tabn 8<CR>
+nnoremap <silent>    <A-9> <Cmd>tabn 9<CR>
+nnoremap <silent>    <A-0> <Cmd>tabn<CR>
+nnoremap <Leader>q :bd<CR>
+nnoremap <Leader>Q :BufferCloseAllButCurrent<CR>
 
 " save sessions
 function! MakeSession(overwrite)
