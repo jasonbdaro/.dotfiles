@@ -8,7 +8,8 @@ export ZSH="/home/jason/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="lambda-mod"
+#ZSH_THEME="lambda-mod"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -88,22 +89,16 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 source ~/.oh-my-zsh/plugins/kube-ps1/kube-ps1.plugin.zsh
-#PROMPT=$PROMPT'$(kube_ps1) '
+PROMPT=$PROMPT'$(kube_ps1) '
 # kube-ps1 configuration
-#KUBE_PS1_SYMBOL_DEFAULT=⎈
-#KUBE_PS1_SEPARATOR="~"
+KUBE_PS1_SYMBOL_DEFAULT=⎈
+KUBE_PS1_SEPARATOR="~"
 
 # Golang
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/projects/golang
-#export GOROOT=/usr/local/go
-#export GOROOT=
-export PATH=$PATH:/home/jason/projects/golang/bin/hello
+#export PATH=$PATH:/usr/local/go/bin
+#export GOPATH=$HOME/projects/golang
+#export PATH=$PATH:/home/jason/projects/golang/bin/hello
 
-# Android Studio
-export ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -131,78 +126,27 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 alias vim="nvim"
 alias vi="nvim"
 alias app="tmuxp"
-alias psclear="php artisan config:clear;php artisan config:cache;php artisan view:clear;php artisan route:clear;composer dump-autoload -o;"
-alias blur="picom --experimental-backends --config ~/picom.conf -b;"
-alias prospark="cd ~/projects/prospark"
-alias personal="cd ~/projects/personal"
-alias andstart="yarn react-native start --port 8082"
-alias andrun="yarn react-native run-android --port 8082"
-alias andrelease="yarn react-native run-android --port 8082 --variant=release"
-alias lifestream="cd ~/projects/lifestreamnetworks"
-alias fhotosocialserver='ssh -i "fhotosocial-server.pem" fhotosocial@131.153.202.203'
-alias hollaserver='ssh -i "holla-server.pem" holla@131.153.202.205'
-alias enspirelyserver='ssh -i "enspirely-server.pem" enspirely@131.153.202.199'
+alias psclear="php artisan config:cache;php artisan view:clear;php artisan route:clear;composer dump-autoload -o;"
+alias ps="cd ~/projects/prospark"
+alias dl="cd ~/Downloads"
+alias ssh@jta="ssh prospark@202.157.175.4"
 
 # docker laradock
 deti() {
     local project=$1
     docker exec --user=laradock -itw /var/www/prospark/$project laradock-workspace-1 zsh
 }
-# docker laradock
-deti2() {
+deti8() {
     local project=$1
-    docker exec --user=laradock -itw /var/www/$project laradock2-workspace-1 zsh
-    #docker exec -it demons-ran-api-app-1 /bin/bash
-}
-deti3() {
-    local project=$1
-    docker exec --user=laradock -itw /var/www/demonsran/$project laradock-workspace-1 zsh
-}
-deti4() {
-    local project=$1
-    docker exec --user=laradock -itw /var/www/ranph/$project laradock-workspace-1 zsh
-}
-deti5() {
-    local project=$1
-    docker exec --user=laradock -itw /var/www/lifestreamnetworks/$project laradock-workspace-1 zsh
-}
-deti6() {
-    docker exec -it $1 /bin/sh
-}
-detishopify() {
-    local project=$1
-    docker exec --user=laradock -itw /var/www/shopify/$project laradock2-workspace-1 zsh
-}
-detism() {
-    local project=$1
-    docker exec --user=laradock -itw /var/www/lifestreamnetworks/smsites-local/$project laradock-workspace-1 zsh
-}
-deti7() {
-    local project=$1
-    docker exec --user=laradock -itw /var/www/RanOnlinePH/ran-originals.com/$project laradock-workspace-1 zsh
+    docker exec --user=laradock -itw /var/www/prospark/$project laradock8-workspace-1 zsh
 }
 
-alias pfm="docker exec -it laradock-php-fpm_1"
-alias ngx="docker exec -it laradock-nginx-1"
-alias sln="docker exec -it laradock-selenium-1 bash"
-alias ws="docker exec laradock-workspace-1"
-#alias startapp="docker-compose up -d nginx mariadb adminer phpmyadmin workspace redis"
-#alias startapp="docker-compose up -d nginx adminer postgres workspace"
-#alias startapp="docker-compose up -d nginx adminer postgres mariadb redis apache2 mongo"
 alias startapp="docker-compose up -d nginx adminer postgres mariadb redis"
-alias startapp2="docker-compose up -d nginx adminer mariadb"
 alias stopapp="docker-compose stop"
 alias restartapp="stopapp && startapp"
 
 # git
 alias cpick="git cherry-pick --no-commit"
-alias feature="git flow feature"
-alias bugfix="git flow bugfix"
-alias hotfix="git flow hotfix"
-alias release="git flow release"
-alias support="git flow support"
-alias stash="git stash --include-untracked"
-alias pop="git stash pop"
 alias commit="git commit -S -m"
 alias gpod="git pull origin develop"
 alias glog="git log --show-signature"
@@ -211,7 +155,7 @@ alias gpull="git pull"
 alias co="git checkout "
 
 #vim
-clearvim() {
+clears() {
     rm -rf "/home/jason/.vim/sessions`pwd`"
 }
 
@@ -223,79 +167,21 @@ alias kgcc="kubectl config current-context"
 alias kgcn="kubectl config view --minify | grep namespace"
 alias kgp="kubectl get po"
 
-#kubernetes
-alias lernabuild="yarn lerna run build"
-alias lernadev="yarn lerna run dev --scope=container"
-
-kcucl() {
-    source ~/.oh-my-zsh/plugins/kube-ps1/kube-ps1.plugin.zsh
-}
 kcn() {
-    k config set-context --current --namespace=$1
-}
-kimages() {
-    kgp -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c
-}
-kdb() {
-    local pod="ms-db-mariadb-primary-0"
-    local passwd=$(
-        k get secret --namespace prospark $pod\
-        -o jsonpath="{.data.mariadb-root-password}" | base64 --decode
-    )
-
-    keti $pod -- mysql -uroot -p$passwd
+  k config set-context --current --namespace=$1
 }
 kdump() {
-    local pod="ps-db-mariadb-primary-0"
-
-    kubectx prospark-oci-dev && kcn prospark && \
-    source ~/.oh-my-zsh/plugins/kube-ps1/kube-ps1.plugin.zsh
-
-    #local passwd=$(
-        #k get secret --namespace prospark $pod\
-        #-o jsonpath="{.data.mariadb-root-password}" | base64 --decode
-    #)
-    #local uuser="sicepat_dev"
-    #local passwd="QMNh4S4WmcDETmMZPBIqSsU7qR4yfPvZ"
-    echo "\nEnter user:"
-    read uuser
-    echo "\nEnter password:"
-    read passwd
-
-    echo "\nGetting databases from pod "$pod":" && \
-    keti $pod -- sh -c "exec mysql -u$uuser -p$passwd -e 'SHOW DATABASES;' | paste -s -d ' ' | sed 's/Database //'" &&\
-    echo "\nSelect database(dump):"
-    read db
-    echo "\nEnter database(restore):"
-    read db2
-
-    local dump=$db"-"$(date +%Y%m%d%H%M)".sql"
-
-    echo "\nGenerating database dump from "$db" ..." &&\
-    keti $pod -- sh -c "exec mysqldump -u$uuser -p$passwd $db > /tmp/$dump" &&\
-    k cp $pod:/tmp/$dump ~/Downloads/$dump &&\
-
-    # comment below if you need only the dump
-    docker exec -i laradock-mariadb-1 mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS "$db2 && \
-    echo "\nRestoring database "$db2" ..." &&\
-    docker exec -i laradock-mariadb-1 mysql -uroot -proot $db2 < ~/Downloads/$dump && \
-    echo "Cleaning up..."
-    keti $pod -- sh -c "rm /tmp/$dump" &&\
-    rm ~/Downloads/$dump &&\
-    echo "Success!"
-}
-kdump2() {
     # comment below if you need only the dump
     docker exec -i laradock-mariadb-1 mariadb -uroot -proot -e "CREATE DATABASE IF NOT EXISTS "$1 && \
     echo "\nRestoring database "$1" ..." &&\
     docker exec -i laradock-mariadb-1 mariadb -uroot -proot $1 < ~/Downloads/$2 && \
     echo "Success!"
 }
-kdump3() {
+kdump8() {
     # comment below if you need only the dump
-    kubectl exec -i ps-db-mariadb-client -- mysql -hps-db-mariadb-primary.prospark.svc.cluster.local -uroot -pH/kZeE4r7dVcwugagXADKI5//87t3BmO -e "CREATE DATABASE IF NOT EXISTS "$1 && \
+    docker exec -i laradock8-mariadb-1 mariadb -uroot -proot -e "CREATE DATABASE IF NOT EXISTS "$1 && \
     echo "\nRestoring database "$1" ..." &&\
-    kubectl exec -i ps-db-mariadb-client -- mysql -hps-db-mariadb-primary.prospark.svc.cluster.local -uroot -pH/kZeE4r7dVcwugagXADKI5//87t3BmO $1 < ~/Downloads/$2 && \
+    docker exec -i laradock8-mariadb-1 mariadb -uroot -proot $1 < ~/Downloads/$2 && \
     echo "Success!"
 }
 pdump() {
@@ -304,18 +190,11 @@ pdump() {
     docker exec -i laradock-postgres-1 psql -U default -d $1 < ~/Downloads/$2 && \
     echo "Success!"
 }
-
-envlms() {
-    cp ~/projects/prospark/cpenv/env-lms . && mv env-lms .env &&\
-    find .env -type f -exec sed -i "s/<customer>/$1/g" {} \;
-}
-envapi() {
-        cp ~/projects/prospark/cpenv/env-api . && mv env-api .env &&\
-        find .env -type f -exec sed -i "s/<customer>/$1/g" {} \;
-}
-envpwa() {
-        cp ~/projects/prospark/cpenv/env-pwa . && mv env-pwa .env &&\
-        find .env -type f -exec sed -i "s/<customer>/$1/g" {} \;
+pdump8() {
+	docker exec -i laradock8-postgres-1 psql -U default -c "CREATE DATABASE "$1 && \
+		echo "\nRestoring database "$1" ..." && \
+    docker exec -i laradock8-postgres-1 psql -U default -d $1 < ~/Downloads/$2 && \
+    echo "Success!"
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
