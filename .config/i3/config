@@ -16,7 +16,7 @@ set $alt Mod1
 ### Wallpaper: ###
 # - You need to specify homescreen wallpaper using azote
 
-set $lockScreenWallpaper /usr/share/wallpapers/garuda-wallpapers/Garuda-Desert.png
+set $lockScreenWallpaper /home/jason/Downloads/background.png
 
 ### Applications: ###
 
@@ -64,29 +64,30 @@ exec --no-startup-id pasystray
 #exec --no-startup-id conky
 #exec --no-startup-id conky -c ~/.config/conky/conky-shcts
 #exec --no-startup-id copyq
-exec --no-startup-id dunst	
+#exec --no-startup-id dunst	
 #exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart/
 #exec --no-startup-id redshift
-exec --no-startup-id desktop-items
+#exec --no-startup-id desktop-items
 exec --no-startup-id nm-applet
 #exec --no-startup-id pamac-tray
 #exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id xfce4-power-manager
-exec --no-startup-id bluetooth-autoconnect --daemon
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id setcursor
+#exec --no-startup-id bluetooth-autoconnect --daemon
+#exec_always --no-startup-id ff-theme-util
+#exec_always --no-startup-id setcursor
 #exec_always --no-startup-id ${HOME}/.config/polybar/launch.sh
-exec_always --no-startup-id numlockx on
-exec blueberry-tray
-exec --no-startup-id java -Xmx1024m -jar "/opt/xdman/xdman.jar" -m
+#exec_always --no-startup-id numlockx on
+#exec blueberry-tray
+#exec --no-startup-id java -Xmx1024m -jar "/opt/xdman/xdman.jar" -m
 
-exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/chromium'
-#exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/code'
-#exec --no-startup-id i3-msg 'workspace 3; exec /usr/bin/tmuxp load pssever'
-exec --no-startup-id i3-msg 'workspace 4; exec /usr/bin/slack'
-#exec --no-startup-id i3-msg 'workspace 4; exec /usr/bin/skypeforlinux'
-exec --no-startup-id i3-msg 'workspace 5; exec /usr/bin/postman'
-exec --no-startup-id i3-msg 'workspace 9; exec /usr/bin/firefox'
+exec --no-startup-id sh -c 'sleep 1; i3-msg "workspace 1; exec /usr/bin/chromium"'
+#exec --no-startup-id sh -c 'sleep 2; i3-msg "workspace 2; exec /usr/bin/kitty /usr/bin/tmuxp load jta"'
+exec --no-startup-id sh -c 'sleep 2; i3-msg "workspace 2; exec /usr/bin/code -a ~/projects/prospark/jta"'
+exec --no-startup-id sh -c 'sleep 3; i3-msg "workspace 3; exec /usr/bin/kitty /usr/bin/tmuxp load psserver2"'
+exec --no-startup-id sh -c 'sleep 4; i3-msg "workspace 3; exec /usr/bin/mousepad ~/Downloads/transfer/tour_ref.txt"'
+exec --no-startup-id sh -c 'sleep 6; i3-msg "workspace 4; exec /usr/bin/slack"'
+exec --no-startup-id sh -c 'sleep 8; i3-msg "workspace 5; exec /usr/bin/postman"'
+exec --no-startup-id sh -c 'sleep 10; i3-msg "workspace 9; exec /usr/bin/firefox"'
 
 # hide/unhide i3status bar
 bindsym $super+m bar mode toggle
@@ -398,7 +399,7 @@ mode "$mode_system" {
     bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
     bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+    bindsym Shift+s exec --no-startup-id ~/restart.sh, mode "default" 
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
