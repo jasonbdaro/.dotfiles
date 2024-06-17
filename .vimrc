@@ -33,8 +33,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/indentLine'
-Plug 'phanviet/vim-monokai-pro'
-Plug 'storyn26383/vim-vue'
+"Plug 'phanviet/vim-monokai-pro'
+"Plug 'storyn26383/vim-vue'
 Plug 'pangloss/vim-javascript'
 Plug 'flazz/vim-colorschemes'
 Plug 'terryma/vim-multiple-cursors'
@@ -45,9 +45,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
-Plug 'crusoexia/vim-monokai'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'w0rp/ale'
+"Plug 'crusoexia/vim-monokai'
+"Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'w0rp/ale'
 Plug 'itchyny/vim-gitbranch'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -60,15 +60,14 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'HerringtonDarkholme/yats.vim'
+"Plug 'HerringtonDarkholme/yats.vim'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'pantharshit00/vim-prisma'
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"Plug 'pantharshit00/vim-prisma'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-"barbar
-"Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
-"Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
-"Plug 'romgrk/barbar.nvim'
+Plug 'prabirshrestha/vim-lsp'
+"Plug 'mattn/vim-lsp-settings'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -86,29 +85,17 @@ let g:airline_powerline_fonts = 1
 " fzf configs
 nnoremap <silent> <C-p> :Files<CR>
 let g:fzf_layout = { 'down': '~25%'  }
- let g:fzf_colors =
- \ { 'fg':      ['fg', 'Normal'],
-   \ 'bg':      ['bg', 'Normal'],
-   \ 'hl':      ['fg', 'Comment'],
-   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-   \ 'hl+':     ['fg', 'Statement'],
-   \ 'info':    ['fg', 'PreProc'],
-   \ 'border':  ['fg', 'Ignore'],
-   \ 'prompt':  ['fg', 'Conditional'],
-   \ 'pointer': ['fg', 'Exception'],
-   \ 'marker':  ['fg', 'Keyword'],
-   \ 'spinner': ['fg', 'Label'],
-   \ 'header':  ['fg', 'Comment'] }
+let g:fzf_preview_window = ['up:0']
 
 " vim configs
 imap jj <esc>
 nnoremap <esc><esc> :silent! nohls<cr>
 vnoremap // y/<C-R>"<CR>
-nmap gt :bnext<cr>
-nmap gT :bprev<cr>
-nnoremap <silent>    <A-l> <Cmd>tabnext<CR>
-nnoremap <silent>    <A-h> <Cmd>tabprevious<CR>
+
+" nmap gt :bnext<cr>
+" nmap gT :bprev<cr>
+nnoremap <silent>    <A-l> <Cmd>:bnext<CR>
+nnoremap <silent>    <A-h> <Cmd>:bprev<CR>
 
 " nerdtree configs
 map <C-b> :NERDTreeToggle<CR>
@@ -126,6 +113,7 @@ let g:ale_sign_column_always = 1
 " vim-devicons configs
 let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
 
+
 " gitgutter configs
 highlight GitGutterAdd    guifg=#009900 ctermfg=2
 highlight GitGutterChange guifg=#bbbb00 ctermfg=3
@@ -139,21 +127,6 @@ let g:startify_lists = []
 
 " Markdown viewer
 let g:mkdp_auto_start = 1
-
-" barbar configs
-set runtimepath^=~/.vim/bundle/bbye
-nnoremap <silent>    <A-1> <Cmd>tabn 1<CR>
-nnoremap <silent>    <A-2> <Cmd>tabn 2<CR>
-nnoremap <silent>    <A-3> <Cmd>tabn 3<CR>
-nnoremap <silent>    <A-4> <Cmd>tabn 4<CR>
-nnoremap <silent>    <A-5> <Cmd>tabn 5<CR>
-nnoremap <silent>    <A-6> <Cmd>tabn 6<CR>
-nnoremap <silent>    <A-7> <Cmd>tabn 7<CR>
-nnoremap <silent>    <A-8> <Cmd>tabn 8<CR>
-nnoremap <silent>    <A-9> <Cmd>tabn 9<CR>
-nnoremap <silent>    <A-0> <Cmd>tabn<CR>
-nnoremap <Leader>q :bd<CR>
-nnoremap <Leader>Q :BufferCloseAllButCurrent<CR>
 
 " save sessions
 function! MakeSession(overwrite)
@@ -181,8 +154,8 @@ endfunction
 
 " Adding automatons for when entering or leaving Vim
 if(argc() == 0)
-  au VimEnter * nested :call LoadSession()
-  au VimLeave * :call MakeSession(1)
+  "au VimEnter * nested :call LoadSession()
+  "au VimLeave * :call MakeSession(1)
 else
-  au VimLeave * :call MakeSession(0)
+  "au VimLeave * :call MakeSession(0)
 endif
