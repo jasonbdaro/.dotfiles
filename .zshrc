@@ -197,5 +197,13 @@ pdump8() {
     echo "Success!"
 }
 
+# fbl - checkout git branch, sorted by most recent commit
+fbl() {
+  local branches branch
+  branches=$(git branch --sort=-committerdate --format="%(refname:short)") &&
+  branch=$(echo "$branches" | fzf +m --preview="git log -3 '{1}'") &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
